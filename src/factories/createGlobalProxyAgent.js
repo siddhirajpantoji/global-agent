@@ -86,6 +86,8 @@ export default (configurationInput: ProxyAgentConfigurationInputType = defaultCo
 
   // eslint-disable-next-line no-process-env
   proxyController.NO_PROXY = process.env[configuration.environmentVariableNamespace + 'NO_PROXY'] || null;
+  
+  proxyController.ONLY_PROXY = process.env[configuration.environmentVariableNamespace + 'ONLY_PROXY'] || null;
 
   log.info({
     configuration,
@@ -97,7 +99,10 @@ export default (configurationInput: ProxyAgentConfigurationInputType = defaultCo
       if (!getProxy()) {
         return false;
       }
-
+      if(proxyController.ONLY_PROXY ){
+        return isUrlMatchingNoProxy(url, proxyController.ONLY_PROXY)
+      } 
+      
       if (!proxyController.NO_PROXY) {
         return true;
       }

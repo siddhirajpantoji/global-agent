@@ -6,6 +6,7 @@ type ProxyControllerType = {|
   HTTP_PROXY: string | null,
   HTTPS_PROXY: string | null,
   NO_PROXY: string | null,
+  ONLY_PROXY: string | null,
 |};
 
 const log = Logger.child({
@@ -16,6 +17,7 @@ const KNOWN_PROPERTY_NAMES = [
   'HTTP_PROXY',
   'HTTPS_PROXY',
   'NO_PROXY',
+  'ONLY_PROXY'
 ];
 
 export default (): ProxyControllerType => {
@@ -24,6 +26,7 @@ export default (): ProxyControllerType => {
     HTTP_PROXY: null,
     HTTPS_PROXY: null,
     NO_PROXY: null,
+    ONLY_PROXY:null
   }, {
     set: (subject, name, value) => {
       if (!KNOWN_PROPERTY_NAMES.includes(name)) {
